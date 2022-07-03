@@ -4,37 +4,46 @@ import {
   Delete,
   Get,
   HttpCode,
+  NotFoundException,
   Param,
   Patch,
   Post,
-  Query,
 } from '@nestjs/common'
+
+import { CoffeesService } from './coffees.service'
 
 @Controller('coffees')
 export class CoffeesController {
+  constructor(private readonly coffeesService: CoffeesService) {}
+
   @Get()
-  index(@Query() { limit, offset }) {
-    return `index coffees, limit: ${limit}, offset: ${offset}`
+  index() {
+    //index(@Query() { limit, offset }) {
+    return this.coffeesService.findAll()
   }
 
   @Get(':id')
   show(@Param('id') id: string) {
-    return `show coffee ${id}`
+    const coffee = this.coffeesService.findOne(id)
+
+    if (!coffee) throw new NotFoundException()
+
+    return coffee
   }
 
   @Post()
   @HttpCode(201)
   create(@Body() body: any) {
-    return body
+    return this.coffeesService.create(body)
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() body: any) {
-    return `path coffee ${id} with ${body}`
+    return this.coffeesService.update(id, body)
   }
 
-  @Delete()
+  @Delete(':id')
   remove(@Param('id') id: string) {
-    return `remove coffe ${id}`
+    return this.coffeesService.remove(id)
   }
 }
