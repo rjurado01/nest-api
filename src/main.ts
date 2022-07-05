@@ -6,7 +6,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule)
 
   app.useGlobalPipes(
+    // https://github.com/typestack/class-validator/issues/169
     new ValidationPipe({
+      whitelist: true,
+      transform: true,
       exceptionFactory: (errors: ValidationError[]) => {
         return new UnprocessableEntityException(errors)
       },
