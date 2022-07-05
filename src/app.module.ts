@@ -1,10 +1,22 @@
-import { Module } from '@nestjs/common'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
-import { CoffeesModule } from './coffees/coffees.module'
+import {Module} from '@nestjs/common'
+import {TypeOrmModule} from '@nestjs/typeorm'
+import {AppController} from './app.controller'
+import {AppService} from './app.service'
+import {CoffeesModule} from './coffees/coffees.module'
 
 @Module({
-  imports: [CoffeesModule],
+  imports: [
+    CoffeesModule,
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'rjurado',
+      database: 'nest_api_dev',
+      autoLoadEntities: true,
+      synchronize: true,
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
