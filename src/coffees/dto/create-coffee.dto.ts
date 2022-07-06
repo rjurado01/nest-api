@@ -1,4 +1,5 @@
-import {IsObject, IsString, MinLength} from 'class-validator'
+import {Type} from 'class-transformer'
+import {IsString, MinLength, ValidateNested} from 'class-validator'
 import {CreateCoffeeFlavorDto} from './create-coffee-flavor.dto'
 
 export class CreateCoffeeDto {
@@ -12,6 +13,7 @@ export class CreateCoffeeDto {
   @IsString()
   readonly brand: string
 
-  @IsObject({each: true})
+  @ValidateNested({each: true})
+  @Type(() => CreateCoffeeFlavorDto)
   readonly flavors: CreateCoffeeFlavorDto[]
 }

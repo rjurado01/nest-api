@@ -8,20 +8,22 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common'
+import {QueryDto} from 'src/common/dto/query.dto'
 
-import { CoffeesService } from './coffees.service'
-import { CreateCoffeeDto } from './dto/create-coffee.dto'
-import { UpdateCoffeeDto } from './dto/update-coffee.dto'
+import {CoffeesService} from './coffees.service'
+import {CreateCoffeeDto} from './dto/create-coffee.dto'
+import {UpdateCoffeeDto} from './dto/update-coffee.dto'
 
 @Controller('coffees')
 export class CoffeesController {
   constructor(private readonly coffeesService: CoffeesService) {}
 
   @Get()
-  index() {
-    //index(@Query() { limit, offset }) {
-    return this.coffeesService.findAll()
+  //index(@Query() { limit, offset }) {
+  index(@Query() queryDto: QueryDto) {
+    return this.coffeesService.findAll(queryDto)
   }
 
   @Get(':id')

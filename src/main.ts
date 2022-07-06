@@ -1,4 +1,8 @@
-import {ValidationPipe, ValidationError, UnprocessableEntityException} from '@nestjs/common'
+import {
+  ValidationPipe,
+  ValidationError,
+  UnprocessableEntityException,
+} from '@nestjs/common'
 import {NestFactory} from '@nestjs/core'
 import {AppModule} from './app.module'
 
@@ -10,6 +14,7 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true,
       transform: true,
+      transformOptions: {enableImplicitConversion: true},
       exceptionFactory: (errors: ValidationError[]) => {
         return new UnprocessableEntityException(errors)
       },
