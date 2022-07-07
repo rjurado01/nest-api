@@ -5,13 +5,22 @@ import {Coffee} from './entities/coffee.entity'
 import {CoffeesService} from './coffees.service'
 import {CoffeeFlavor} from './entities/coffee-flavor.entity'
 import {COFFEE_BRANDS} from './coffees.constants'
+import {Connection} from 'typeorm'
 
 @Module({
   imports: [TypeOrmModule.forFeature([Coffee, CoffeeFlavor])],
   controllers: [CoffeesController],
   providers: [
     CoffeesService,
-    {provide: COFFEE_BRANDS, useValue: ['buddy brew', 'nescafe']},
+    {
+      provide: COFFEE_BRANDS,
+      useFactory: async (_connection: Connection): Promise<string[]> => {
+        // const coffeeBrands = await connection.query('SELECT * ...')
+        const coffeeBrands = await Promise.resolve(['buddy brew', 'nescafe'])
+        return coffeeBrands
+      },
+      inject: [Connection],
+    },
   ],
   // providers: [{provide: CoffeesService, useValue: new MockCoffeesService()}],
   exports: [CoffeesService],
