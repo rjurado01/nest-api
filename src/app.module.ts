@@ -4,10 +4,12 @@ import {AppController} from './app.controller'
 import {AppService} from './app.service'
 import {CoffeesModule} from './coffees/coffees.module'
 import {Event} from './events/entities/event.entity'
+import {CoffeeRatingModule} from './coffee-rating/coffee-rating.module'
 
 @Module({
   imports: [
     CoffeesModule,
+    CoffeeRatingModule,
     Event,
     TypeOrmModule.forRoot({
       type: 'postgres',
