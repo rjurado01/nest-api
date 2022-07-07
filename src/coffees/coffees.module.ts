@@ -9,6 +9,7 @@ import {CoffeeFlavor} from './entities/coffee-flavor.entity'
   imports: [TypeOrmModule.forFeature([Coffee, CoffeeFlavor])],
   controllers: [CoffeesController],
   providers: [CoffeesService],
+  // providers: [{provide: CoffeesService, useValue: new MockCoffeesService()}],
   exports: [CoffeesService],
 })
 export class CoffeesModule {}
