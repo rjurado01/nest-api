@@ -10,7 +10,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common'
-import {QueryDto} from 'src/common/dto/query.dto'
+import {QueryDto} from '../common/dto/query.dto'
 
 import {CoffeesService} from './coffees.service'
 import {CreateCoffeeDto} from './dto/create-coffee.dto'

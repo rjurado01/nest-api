@@ -16,7 +16,7 @@ import {Event} from './events/entities/event.entity'
       username: 'rjurado',
       database: 'nest_api_dev',
       autoLoadEntities: true,
-      synchronize: true,
+      // synchronize: true,
     }),
   ],
   controllers: [AppController],
