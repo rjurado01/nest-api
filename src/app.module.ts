@@ -6,6 +6,7 @@ import {CoffeesModule} from './coffees/coffees.module'
 import {Event} from './events/entities/event.entity'
 import {CoffeeRatingModule} from './coffee-rating/coffee-rating.module'
 import {ConfigModule} from '@nestjs/config'
+import {CommonModule} from './common/common.module'
 import * as Joi from 'joi'
 
 @Module({
@@ -17,6 +18,7 @@ import * as Joi from 'joi'
         POSTGRES_USER: Joi.required(),
       }),
     }),
+    CommonModule,
     CoffeesModule,
     CoffeeRatingModule,
     Event,

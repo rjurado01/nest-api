@@ -10,6 +10,7 @@ import {
   Patch,
   Post,
   Query,
+  SetMetadata,
 } from '@nestjs/common'
 import {REQUEST} from '@nestjs/core'
 import {QueryDto} from '../common/dto/query.dto'
@@ -18,6 +19,7 @@ import {Request} from 'express'
 import {CoffeesService} from './coffees.service'
 import {CreateCoffeeDto} from './dto/create-coffee.dto'
 import {UpdateCoffeeDto} from './dto/update-coffee.dto'
+import {Public} from 'src/common/decorators/publid.decorator'
 
 @Controller('coffees')
 export class CoffeesController {
@@ -26,6 +28,7 @@ export class CoffeesController {
     @Inject(REQUEST) private readonly request: Request,
   ) {}
 
+  @Public()
   @Get()
   //index(@Query() { limit, offset }) {
   index(@Query() queryDto: QueryDto) {
