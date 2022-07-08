@@ -10,7 +10,6 @@ import {
   Patch,
   Post,
   Query,
-  SetMetadata,
 } from '@nestjs/common'
 import {REQUEST} from '@nestjs/core'
 import {QueryDto} from '../common/dto/query.dto'
@@ -31,7 +30,9 @@ export class CoffeesController {
   @Public()
   @Get()
   //index(@Query() { limit, offset }) {
-  index(@Query() queryDto: QueryDto) {
+  async index(@Query() queryDto: QueryDto) {
+    const rand = Math.random() < 0.5
+    if (rand) await new Promise(resolve => setTimeout(resolve, 5000))
     return this.coffeesService.findAll(queryDto)
   }
 
