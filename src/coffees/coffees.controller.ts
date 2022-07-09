@@ -20,6 +20,7 @@ import {CreateCoffeeDto} from './dto/create-coffee.dto'
 import {UpdateCoffeeDto} from './dto/update-coffee.dto'
 import {Public} from 'src/common/decorators/publid.decorator'
 import {ParseIntPipe} from 'src/common/pipes/parse-int.pipe'
+import {Protocol} from 'src/common/decorators/protocol.decorator'
 
 @Controller('coffees')
 export class CoffeesController {
@@ -31,7 +32,11 @@ export class CoffeesController {
   @Public()
   @Get()
   //index(@Query() { limit, offset }) {
-  async index(@Query() queryDto: QueryDto) {
+  async index(
+    @Protocol('https') protocol: string,
+    @Query() queryDto: QueryDto,
+  ) {
+    console.log(`protocol: ${protocol}`)
     const rand = Math.random() < 0.5
     if (rand) await new Promise(resolve => setTimeout(resolve, 5000))
     return this.coffeesService.findAll(queryDto)
