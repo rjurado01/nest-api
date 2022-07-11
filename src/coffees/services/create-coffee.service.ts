@@ -1,6 +1,6 @@
 import {Injectable} from '@nestjs/common'
 import {InjectRepository} from '@nestjs/typeorm'
-import {Coffee} from 'src/coffees/entities/coffee.entity'
+import {Coffee} from '../entities/coffee.entity'
 import {Repository} from 'typeorm'
 import {CreateCoffeeDto} from '../dto/create-coffee.dto'
 

@@ -18,9 +18,9 @@ import {Request} from 'express'
 import {CoffeesService} from './coffees.service'
 import {CreateCoffeeDto} from './dto/create-coffee.dto'
 import {UpdateCoffeeDto} from './dto/update-coffee.dto'
-import {Public} from 'src/common/decorators/publid.decorator'
-import {ParseIntPipe} from 'src/common/pipes/parse-int.pipe'
-import {Protocol} from 'src/common/decorators/protocol.decorator'
+import {Public} from '../common/decorators/publid.decorator'
+import {ParseIntPipe} from '../common/pipes/parse-int.pipe'
+import {Protocol} from '../common/decorators/protocol.decorator'
 import {CreateCoffeeService} from './services/create-coffee.service'
 
 @Controller('coffees')
