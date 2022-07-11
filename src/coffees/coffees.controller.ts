@@ -21,11 +21,13 @@ import {UpdateCoffeeDto} from './dto/update-coffee.dto'
 import {Public} from 'src/common/decorators/publid.decorator'
 import {ParseIntPipe} from 'src/common/pipes/parse-int.pipe'
 import {Protocol} from 'src/common/decorators/protocol.decorator'
+import {CreateCoffeeService} from './services/create-coffee.service'
 
 @Controller('coffees')
 export class CoffeesController {
   constructor(
     private readonly coffeesService: CoffeesService,
+    private readonly createCoffeeService: CreateCoffeeService,
     @Inject(REQUEST) private readonly request: Request,
   ) {}
 
@@ -44,7 +46,6 @@ export class CoffeesController {
 
   @Get(':id')
   show(@Param('id', ParseIntPipe) id: string) {
-    console.log(id)
     const coffee = this.coffeesService.findOne(id)
 
     if (!coffee) throw new NotFoundException()
@@ -55,7 +56,7 @@ export class CoffeesController {
   @Post()
   @HttpCode(201)
   create(@Body() createCoffeeDto: CreateCoffeeDto) {
-    return this.coffeesService.create(createCoffeeDto)
+    return this.createCoffeeService.run(createCoffeeDto)
   }
 
   @Patch(':id')

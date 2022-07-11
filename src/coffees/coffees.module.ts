@@ -6,12 +6,14 @@ import {CoffeesService} from './coffees.service'
 import {CoffeeFlavor} from './entities/coffee-flavor.entity'
 import {COFFEE_BRANDS} from './coffees.constants'
 import {Connection} from 'typeorm'
+import {CreateCoffeeService} from './services/create-coffee.service'
 
 @Module({
   imports: [TypeOrmModule.forFeature([Coffee, CoffeeFlavor])],
   controllers: [CoffeesController],
   providers: [
     CoffeesService,
+    CreateCoffeeService,
     {
       provide: COFFEE_BRANDS,
       useFactory: async (_connection: Connection): Promise<string[]> => {
