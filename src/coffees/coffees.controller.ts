@@ -39,18 +39,14 @@ export class CoffeesController {
     @Query() queryDto: QueryDto,
   ) {
     console.log(`protocol: ${protocol}`)
-    const rand = Math.random() < 0.5
-    if (rand) await new Promise(resolve => setTimeout(resolve, 5000))
+    // const rand = Math.random() < 0.5
+    // if (rand) await new Promise(resolve => setTimeout(resolve, 5000))
     return this.coffeesService.findAll(queryDto)
   }
 
   @Get(':id')
   show(@Param('id', ParseIntPipe) id: string) {
-    const coffee = this.coffeesService.findOne(id)
-
-    if (!coffee) throw new NotFoundException()
-
-    return coffee
+    return this.coffeesService.findOne(id)
   }
 
   @Post()
@@ -59,13 +55,13 @@ export class CoffeesController {
     return this.createCoffeeService.run(createCoffeeDto)
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCoffeeDto: UpdateCoffeeDto) {
-    return this.coffeesService.update(id, updateCoffeeDto)
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateCoffeeDto: UpdateCoffeeDto) {
+  //   return this.coffeesService.update(id, updateCoffeeDto)
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.coffeesService.remove(id)
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.coffeesService.remove(id)
+  // }
 }
