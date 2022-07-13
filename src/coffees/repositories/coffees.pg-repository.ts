@@ -5,6 +5,7 @@ import {DataSource, EntityNotFoundError, Repository} from 'typeorm'
 import {CoffeeRepository} from './coffees.repository'
 import {Coffee} from '../entities/coffee.entity'
 
+// https://stackoverflow.com/questions/29336496/extends-and-implements-in-one-class-in-typescript
 @Injectable()
 export class CoffeePgRepository implements CoffeeRepository<Coffee> {
   repository: Repository<Coffee>
@@ -37,16 +38,14 @@ export class CoffeePgRepository implements CoffeeRepository<Coffee> {
   }
 
   async create(coffee: Coffee) {
-    await this.repository.insert(coffee)
-
-    return Promise.resolve(null)
+    return this.repository.insert(coffee).then(() => {})
   }
 
   async update(coffee: Coffee) {
-    await this.repository.save(coffee)
-
-    return Promise.resolve(null)
+    return this.repository.save(coffee).then(() => {})
   }
 
-  // https://stackoverflow.com/questions/29336496/extends-and-implements-in-one-class-in-typescript
+  async remove(coffee: Coffee) {
+    return this.repository.remove(coffee).then(() => {})
+  }
 }

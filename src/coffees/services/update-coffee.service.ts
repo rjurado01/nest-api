@@ -2,11 +2,11 @@ import {Injectable} from '@nestjs/common'
 import {Inject} from '@nestjs/common'
 
 import {Coffee} from '../entities/coffee.entity'
-import {UpdateCoffeeDto} from '../dtos/update-coffee.dto'
+import {CoffeeDto} from '../dtos/coffee.dto'
 import {CoffeeRepository} from '../repositories/coffees.repository'
 import {Service} from '../../common/service'
-import {EntityInvalidError} from 'src/common/errors/entity-invalid.error'
-import {validate} from '../../common/entity-utils'
+import {EntityValidator} from '../../common/helpers/entity-validator'
+import {EntityPreloader} from 'src/common/helpers/entity-preloader'
 
 @Injectable()
 export class UpdateCoffeeService implements Service {
@@ -15,13 +15,15 @@ export class UpdateCoffeeService implements Service {
     private readonly coffeeRepository: CoffeeRepository<Coffee>,
   ) {}
 
-  async run(updateCoffeeDto: UpdateCoffeeDto) {
-    const coffee = await this.coffeeRepository.findById(updateCoffeeDto.id)
+  async run(coffeeDto: CoffeeDto): Promise<void> {
+    console.log(coffeeDto)
+    const coffee = await EntityPreloader.preload(
+      this.coffeeRepository,
+      coffeeDto,
+    )
 
-    Object.assign(coffee, updateCoffeeDto)
+    await EntityValidator.validate(coffee)
 
-    validate(coffee)
-
-    this.coffeeRepository.update(coffee)
+    return this.coffeeRepository.update(coffee)
   }
 }

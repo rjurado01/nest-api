@@ -8,7 +8,7 @@ import {
 import {Test, TestingModule} from '@nestjs/testing'
 import {TypeOrmModule} from '@nestjs/typeorm'
 import * as request from 'supertest'
-import {CreateCoffeeDto} from 'src/coffees/dto/create-coffee.dto'
+import {CoffeeDto} from 'src/coffees/dto/coffee.dto'
 
 describe('[Feature] Coffees - /coffees', () => {
   let app: INestApplication
@@ -55,7 +55,7 @@ describe('[Feature] Coffees - /coffees', () => {
   it('Create [POST /]', () => {
     return request(app.getHttpServer())
       .post('/coffees')
-      .send(coffee as CreateCoffeeDto)
+      .send(coffee as CoffeeDto)
       .expect(201)
   })
 

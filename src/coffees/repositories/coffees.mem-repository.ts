@@ -1,14 +1,17 @@
 import {QueryDto} from 'src/common/dtos/query.dto'
 import {CoffeeRepository} from './coffees.repository'
 import {Coffee} from '../entities/coffee.entity'
+import {EntityNotFoundError} from 'typeorm'
 
 export class CoffeeMemRepository implements CoffeeRepository<Coffee> {
-  collection: Coffee[] = [
-    {id: '1', title: 'A1', brand: 'A1', recommendations: 0, flavors: []},
-  ]
+  collection: Coffee[] = []
 
   async findById(id: string) {
-    return Promise.resolve(this.collection.find(item => item.id === id))
+    const coffee = this.collection.find(item => item.id === id)
+
+    if (!coffee) throw new EntityNotFoundError(Coffee, {id: id})
+
+    return Promise.resolve(coffee)
   }
 
   findAll(query: QueryDto) {
@@ -23,7 +26,7 @@ export class CoffeeMemRepository implements CoffeeRepository<Coffee> {
   create(coffee: Coffee) {
     this.collection.push(coffee)
 
-    return Promise.resolve(null)
+    return Promise.resolve()
   }
 
   update(coffee: Coffee) {
@@ -31,6 +34,14 @@ export class CoffeeMemRepository implements CoffeeRepository<Coffee> {
 
     if (index > -1) this.collection[index] = coffee
 
-    return Promise.resolve(null)
+    return Promise.resolve()
+  }
+
+  remove(coffee: Coffee) {
+    const index = this.collection.findIndex(item => item.id === coffee.id)
+
+    if (index > -1) this.collection.splice(index, 1)
+
+    return Promise.resolve()
   }
 }
