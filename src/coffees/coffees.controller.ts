@@ -12,22 +12,28 @@ import {
   Query,
 } from '@nestjs/common'
 import {REQUEST} from '@nestjs/core'
-import {QueryDto} from '../common/dto/query.dto'
+import {QueryDto} from '../common/dtos/query.dto'
 import {Request} from 'express'
 
-import {CoffeesService} from './coffees.service'
-import {CreateCoffeeDto} from './dto/create-coffee.dto'
-import {UpdateCoffeeDto} from './dto/update-coffee.dto'
+import {CreateCoffeeDto} from './dtos/create-coffee.dto'
+import {UpdateCoffeeDto} from './dtos/update-coffee.dto'
+
+import {CoffeesService} from './services/coffees.service'
+import {ListCoffeesService} from './services/list-coffees.service'
+import {ShowCoffeeService} from './services/show-coffee.service'
+import {CreateCoffeeService} from './services/create-coffee.service'
+
 import {Public} from '../common/decorators/publid.decorator'
 import {ParseIntPipe} from '../common/pipes/parse-int.pipe'
 import {Protocol} from '../common/decorators/protocol.decorator'
-import {CreateCoffeeService} from './services/create-coffee.service'
 
 @Controller('coffees')
 export class CoffeesController {
   constructor(
     private readonly coffeesService: CoffeesService,
     private readonly createCoffeeService: CreateCoffeeService,
+    private readonly listCoffeesService: ListCoffeesService,
+    private readonly showCoffeeService: ShowCoffeeService,
     @Inject(REQUEST) private readonly request: Request,
   ) {}
 
@@ -41,12 +47,12 @@ export class CoffeesController {
     console.log(`protocol: ${protocol}`)
     // const rand = Math.random() < 0.5
     // if (rand) await new Promise(resolve => setTimeout(resolve, 5000))
-    return this.coffeesService.findAll(queryDto)
+    return this.listCoffeesService.run(queryDto)
   }
 
   @Get(':id')
   show(@Param('id', ParseIntPipe) id: string) {
-    return this.coffeesService.findOne(id)
+    return this.showCoffeeService.run(id)
   }
 
   @Post()

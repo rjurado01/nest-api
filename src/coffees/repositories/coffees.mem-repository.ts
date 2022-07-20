@@ -1,6 +1,6 @@
-import {QueryDto} from 'src/common/dto/query.dto'
+import {QueryDto} from 'src/common/dtos/query.dto'
 import {CoffeeRepository} from './coffees.repository'
-import {Coffee} from './entities/coffee.entity'
+import {Coffee} from '../entities/coffee.entity'
 
 export class CoffeeMemRepository implements CoffeeRepository<Coffee> {
   collection: Coffee[] = [
@@ -23,6 +23,14 @@ export class CoffeeMemRepository implements CoffeeRepository<Coffee> {
   create(coffee: Coffee) {
     this.collection.push(coffee)
 
-    return Promise.resolve(coffee)
+    return Promise.resolve(null)
+  }
+
+  update(coffee: Coffee) {
+    const index = this.collection.findIndex(item => item.id === coffee.id)
+
+    if (index > -1) this.collection[index] = coffee
+
+    return Promise.resolve(null)
   }
 }

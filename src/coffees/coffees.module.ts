@@ -2,15 +2,17 @@ import {Module} from '@nestjs/common'
 import {TypeOrmModule} from '@nestjs/typeorm'
 import {CoffeesController} from './coffees.controller'
 import {Coffee} from './entities/coffee.entity'
-import {CoffeesService} from './coffees.service'
+import {CoffeesService} from './services/coffees.service'
 import {CoffeeFlavor} from './entities/coffee-flavor.entity'
 import {COFFEE_BRANDS} from './coffees.constants'
 import {Connection} from 'typeorm'
 import {CreateCoffeeService} from './services/create-coffee.service'
-import {CoffeeRepository} from './coffees.repository'
-// import {CoffeePgRepository} from './coffees.pg-repository'
-import {CoffeeMemRepository} from './coffees.mem-repository'
-import {CoffeePgRepository} from './coffees.pg-repository'
+import {ListCoffeesService} from './services/list-coffees.service'
+import {CoffeeRepository} from './repositories/coffees.repository'
+// import {CoffeeMemRepository} from './repositories/coffees.mem-repository'
+import {CoffeePgRepository} from './repositories/coffees.pg-repository'
+import {UpdateCoffeeService} from './services/update-coffee.service'
+import {ShowCoffeeService} from './services/show-coffee.service'
 
 @Module({
   imports: [TypeOrmModule.forFeature([Coffee, CoffeeFlavor])],
@@ -18,6 +20,9 @@ import {CoffeePgRepository} from './coffees.pg-repository'
   providers: [
     CoffeesService,
     CreateCoffeeService,
+    ListCoffeesService,
+    ShowCoffeeService,
+    UpdateCoffeeService,
     {
       provide: CoffeeRepository,
       useClass: CoffeePgRepository,

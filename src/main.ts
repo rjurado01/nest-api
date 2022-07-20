@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common'
 import {NestFactory} from '@nestjs/core'
 import {AppModule} from './app.module'
+import {EntityInvalidFilter} from './common/filters/entity-invalid.filter'
 import {EntityNotFoundFilter} from './common/filters/entity-not-found.filter'
 import {HttpExceptionFilter} from './common/filters/http-exception.filter'
 import {TimeoutInterceptor} from './common/interceptors/timeout.interceptor'
@@ -30,7 +31,11 @@ async function bootstrap() {
     new TimeoutInterceptor(),
   )
 
-  app.useGlobalFilters(new HttpExceptionFilter(), new EntityNotFoundFilter())
+  app.useGlobalFilters(
+    new HttpExceptionFilter(),
+    new EntityNotFoundFilter(),
+    new EntityInvalidFilter(),
+  )
 
   await app.listen(3000)
 }

@@ -1,9 +1,9 @@
 import {Injectable} from '@nestjs/common'
-import {PaginationQueryDto} from 'src/common/dto/pagination-query.dto'
-import {QueryDto} from 'src/common/dto/query.dto'
+import {PaginationQueryDto} from 'src/common/dtos/pagination-query.dto'
+import {QueryDto} from 'src/common/dtos/query.dto'
 import {DataSource, EntityNotFoundError, Repository} from 'typeorm'
 import {CoffeeRepository} from './coffees.repository'
-import {Coffee} from './entities/coffee.entity'
+import {Coffee} from '../entities/coffee.entity'
 
 @Injectable()
 export class CoffeePgRepository implements CoffeeRepository<Coffee> {
@@ -36,8 +36,16 @@ export class CoffeePgRepository implements CoffeeRepository<Coffee> {
     return this.repository.find(queryFormated)
   }
 
-  create(coffee: Coffee) {
-    return this.repository.save(coffee)
+  async create(coffee: Coffee) {
+    await this.repository.insert(coffee)
+
+    return Promise.resolve(null)
+  }
+
+  async update(coffee: Coffee) {
+    await this.repository.save(coffee)
+
+    return Promise.resolve(null)
   }
 
   // https://stackoverflow.com/questions/29336496/extends-and-implements-in-one-class-in-typescript
