@@ -16,7 +16,6 @@ export class UpdateCoffeeService implements Service {
   ) {}
 
   async run(coffeeDto: CoffeeDto): Promise<void> {
-    console.log(coffeeDto)
     const coffee = await EntityPreloader.preload(
       this.coffeeRepository,
       coffeeDto,

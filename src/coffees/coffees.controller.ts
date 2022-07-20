@@ -10,6 +10,7 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common'
 import {REQUEST} from '@nestjs/core'
 import {QueryDto} from '../common/dtos/query.dto'
@@ -25,6 +26,7 @@ import {RemoveCoffeeService} from './services/remove-coffee.service'
 
 import {Public} from '../common/decorators/publid.decorator'
 import {Protocol} from '../common/decorators/protocol.decorator'
+import {AdminGuard} from 'src/common/guards/admin.guard'
 
 @Controller('coffees')
 export class CoffeesController {
@@ -39,6 +41,7 @@ export class CoffeesController {
 
   @Public()
   @Get()
+  @UseGuards(AdminGuard)
   //index(@Query() { limit, offset }) {
   async index(
     @Protocol('https') protocol: string,
