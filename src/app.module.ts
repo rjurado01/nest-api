@@ -7,6 +7,8 @@ import {Event} from './events/entities/event.entity'
 import {CoffeeRatingModule} from './coffee-rating/coffee-rating.module'
 import {ConfigModule} from '@nestjs/config'
 import {CommonModule} from './common/common.module'
+import {AuthModule} from './auth/auth.module'
+import {UsersModule} from './users/users.module'
 import * as Joi from 'joi'
 
 @Module({
@@ -31,6 +33,8 @@ import * as Joi from 'joi'
       autoLoadEntities: true,
       synchronize: true,
     }),
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
