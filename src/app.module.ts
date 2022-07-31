@@ -31,7 +31,7 @@ import * as Joi from 'joi'
       username: process.env.POSTGRES_USER,
       database: process.env.POSTGRES_DB || 'nest_api_dev',
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: false,
     }),
     AuthModule,
     UsersModule,

@@ -1,15 +1,17 @@
 import {Module} from '@nestjs/common'
 import {APP_GUARD} from '@nestjs/core'
-import {JwtModule} from '@nestjs/jwt'
+import {JwtModule, JwtService} from '@nestjs/jwt'
 import {PassportModule} from '@nestjs/passport'
 import {ConfigModule, ConfigService} from '@nestjs/config'
+import * as Joi from 'joi'
 
 import {AuthService} from './auth.service'
 import {JwtAuthGuard} from './guards/jwt-auth.guard'
 import {LocalStrategy} from './strategies/local.strategy'
 import {JwtStrategy} from './strategies/jwt.strategy'
 import {UsersModule} from '../users/users.module'
-import * as Joi from 'joi'
+import {AuthUserMemRepository} from './repositories/auth-user.mem-repository'
+import {AuthUserRepository} from './repositories/auth-user.repository'
 
 @Module({
   imports: [
@@ -37,6 +39,7 @@ import * as Joi from 'joi'
     LocalStrategy,
     JwtStrategy,
     {provide: APP_GUARD, useClass: JwtAuthGuard},
+    {provide: AuthUserRepository, useClass: AuthUserMemRepository},
   ],
   exports: [AuthService],
 })
