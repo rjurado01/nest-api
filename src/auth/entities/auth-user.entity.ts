@@ -2,7 +2,7 @@ import {IsDefined, IsEmail, IsString} from 'class-validator'
 import {Column, Entity, PrimaryColumn} from 'typeorm'
 import {createHash} from 'crypto'
 
-@Entity('users')
+@Entity('user')
 export class AuthUser {
   @PrimaryColumn()
   @IsDefined()
