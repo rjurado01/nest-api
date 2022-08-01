@@ -27,4 +27,8 @@ export class UserPgRepository implements UserRepository {
 
     return this.ormRepository.find(queryFormated)
   }
+
+  count(filter: object) {
+    return this.ormRepository.count({where: filter})
+  }
 }
