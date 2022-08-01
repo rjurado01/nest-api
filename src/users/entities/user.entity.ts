@@ -1,36 +1,34 @@
-import {
-  IsDefined,
-  IsEmail,
-  IsNumber,
-  IsString,
-  MinLength,
-  Validate,
-  ValidationArguments,
-  ValidatorConstraint,
-  ValidatorConstraintInterface,
-} from 'class-validator'
-import {Column, Entity, JoinTable, ManyToMany, PrimaryColumn} from 'typeorm'
+import {AutoMap} from '@automapper/classes'
+import {IsDefined, IsEmail, IsString, MinLength} from 'class-validator'
+import {Column, Entity, PrimaryColumn} from 'typeorm'
 
 @Entity()
 export class User {
   @PrimaryColumn()
   @IsDefined()
   @IsString()
+  @AutoMap()
   id: string
 
   @Column()
   @IsDefined()
   @IsString()
-  @IsEmail()
-  @MinLength(3)
-  email: string
+  @AutoMap()
+  role: string
+
+  @Column()
+  @IsDefined()
+  @IsString()
+  @AutoMap()
+  status: string
 
   @Column()
   @IsDefined()
   @IsString()
   @IsEmail()
   @MinLength(3)
-  passwordDigest: string
+  @AutoMap()
+  email: string
 
   constructor() {}
 }

@@ -26,7 +26,7 @@ import {RemoveCoffeeService} from './services/remove-coffee.service'
 
 import {Public} from '../common/decorators/publid.decorator'
 import {Protocol} from '../common/decorators/protocol.decorator'
-import {AdminGuard} from 'src/common/guards/admin.guard'
+import {AdminGuard} from '../common/guards/admin.guard'
 
 @Controller('coffees')
 export class CoffeesController {

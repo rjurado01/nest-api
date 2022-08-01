@@ -27,22 +27,22 @@ export class User1659278411385 implements MigrationInterface {
         isUnique: true,
       },
       {
-        name: 'created_at',
+        name: 'createdAt',
         type: 'timestamptz',
         default: 'now()',
       },
       {
-        name: 'updated_at',
+        name: 'updatedAt',
         type: 'timestamptz',
         default: 'now()',
       },
       {
-        name: 'invitation_token',
+        name: 'invitationToken',
         type: 'varchar',
         isNullable: true,
       },
       {
-        name: 'password_digest',
+        name: 'passwordDigest',
         type: 'varchar',
         isNullable: true,
       },

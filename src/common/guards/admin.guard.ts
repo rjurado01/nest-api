@@ -7,11 +7,13 @@ export class AdminGuard implements CanActivate {
     const request = context.switchToHttp().getRequest()
     const user = request.user
 
-    await new Promise(resolve => {
-      setTimeout(() => {
-        resolve(true)
-      }, 2000)
-    })
+    // await new Promise(resolve => {
+    //   setTimeout(() => {
+    //     resolve(true)
+    //   }, 2000)
+    // })
+
+    console.log(user)
 
     return user?.role === ADMIN_ROLE
   }

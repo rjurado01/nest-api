@@ -1,15 +1,20 @@
 import {Module} from '@nestjs/common'
 import {TypeOrmModule} from '@nestjs/typeorm'
+import {ConfigModule} from '@nestjs/config'
+import {AutomapperModule} from '@automapper/nestjs'
+import {classes} from '@automapper/classes'
+
 import {AppController} from './app.controller'
 import {AppService} from './app.service'
 import {CoffeesModule} from './coffees/coffees.module'
 import {Event} from './events/entities/event.entity'
 import {CoffeeRatingModule} from './coffee-rating/coffee-rating.module'
-import {ConfigModule} from '@nestjs/config'
 import {CommonModule} from './common/common.module'
 import {AuthModule} from './auth/auth.module'
 import {UsersModule} from './users/users.module'
+
 import * as Joi from 'joi'
+import {AppDataSource} from 'ormconfig'
 
 @Module({
   imports: [
@@ -20,19 +25,14 @@ import * as Joi from 'joi'
         POSTGRES_USER: Joi.required(),
       }),
     }),
+    AutomapperModule.forRoot({
+      strategyInitializer: classes(),
+    }),
     CommonModule,
     CoffeesModule,
     CoffeeRatingModule,
     Event,
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.POSTGRES_HOST || 'localhost',
-      port: +process.env.POSTGRES_PORT || 5432,
-      username: process.env.POSTGRES_USER,
-      database: process.env.POSTGRES_DB || 'nest_api_dev',
-      autoLoadEntities: true,
-      synchronize: false,
-    }),
+    TypeOrmModule.forRoot(AppDataSource.options),
     AuthModule,
     UsersModule,
   ],

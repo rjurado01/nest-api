@@ -1,4 +1,5 @@
 import {DataSource} from 'typeorm'
+import {SnakeNamingStrategy} from 'typeorm-naming-strategies'
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -10,4 +11,5 @@ export const AppDataSource = new DataSource({
   name: 'default',
   entities: ['dist/**/*.entity{.ts,.js}'],
   migrations: ['dist/migrations/**/*{.ts,.js}'],
+  namingStrategy: new SnakeNamingStrategy(),
 })

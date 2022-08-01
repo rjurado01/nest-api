@@ -12,6 +12,16 @@ export class AuthUser {
   @Column()
   @IsDefined()
   @IsString()
+  role: string
+
+  @Column()
+  @IsDefined()
+  @IsString()
+  status: string
+
+  @Column()
+  @IsDefined()
+  @IsString()
   @IsEmail()
   email: string
 
@@ -27,6 +37,7 @@ export class AuthUser {
   }
 
   private encryptPass(password: string) {
+    // 'jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI=' / 123456
     return createHash('sha256').update(password).digest('base64')
   }
 }
