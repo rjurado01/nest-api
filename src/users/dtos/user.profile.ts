@@ -1,8 +1,8 @@
 import {AutomapperProfile, InjectMapper} from '@automapper/nestjs'
-import {createMap, Mapper, MappingProfile} from '@automapper/core'
+import {createMap, Mapper} from '@automapper/core'
 import {Injectable} from '@nestjs/common'
 import {User} from '../entities/user.entity'
-import {ListUserDto} from './list-user.dto'
+import {ListActionUserDto} from './list-action-user.dto'
 
 @Injectable()
 export class UserProfile extends AutomapperProfile {
@@ -11,8 +11,8 @@ export class UserProfile extends AutomapperProfile {
   }
 
   override get profile() {
-    return mapper => {
-      createMap(mapper, User, ListUserDto)
+    return (mapper: Mapper) => {
+      createMap(mapper, User, ListActionUserDto)
     }
   }
 }

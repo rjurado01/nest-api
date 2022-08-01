@@ -1,6 +1,6 @@
 import {AutoMap} from '@automapper/classes'
 
-export class ListUserDto {
+export class ListActionUserDto {
   @AutoMap()
   id: string
 
