@@ -1,17 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpCode,
-  Inject,
-  NotFoundException,
-  Param,
-  Patch,
-  Post,
-  Query,
-  UseGuards,
-} from '@nestjs/common'
+import {Controller, Get, Query, UseGuards} from '@nestjs/common'
 import {QueryDto} from '../common/dtos/query.dto'
 
 import {ListUsersService} from './services/list-users.service'

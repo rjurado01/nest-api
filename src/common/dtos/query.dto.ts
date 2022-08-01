@@ -10,5 +10,5 @@ export class QueryDto {
 
   @IsOptional()
   @ValidateNested()
-  page: PaginationQueryDto
+  page: PaginationQueryDto = new PaginationQueryDto()
 }
