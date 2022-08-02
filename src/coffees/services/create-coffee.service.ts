@@ -26,8 +26,6 @@ export class CreateCoffeeService implements Service {
       errors = err.errors
     }
 
-    console.log(coffee)
-
     try {
       await this.coffeeRepository.findById(createCoffeeDto.id)
       errors.addError('id', 'taken', {value: createCoffeeDto.id})

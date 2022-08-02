@@ -13,7 +13,7 @@ export class AdminGuard implements CanActivate {
     //   }, 2000)
     // })
 
-    console.log(user)
+    // console.log(user)
 
     return user?.role === ADMIN_ROLE
   }

@@ -2,6 +2,7 @@ import {QueryDto} from 'src/common/dtos/query.dto'
 import {CoffeeRepository} from './coffees.repository'
 import {Coffee} from '../entities/coffee.entity'
 import {EntityNotFoundError} from 'typeorm'
+import {ListCoffeesFiltersDto} from '../dtos/list-coffees-filters.dto'
 
 export class CoffeeMemRepository implements CoffeeRepository<Coffee> {
   collection: Coffee[] = []
@@ -14,7 +15,7 @@ export class CoffeeMemRepository implements CoffeeRepository<Coffee> {
     return Promise.resolve(coffee)
   }
 
-  findAll(query: QueryDto) {
+  findAll(query: QueryDto<ListCoffeesFiltersDto>) {
     const page = query.page?.number
     const size = query.page?.size
 

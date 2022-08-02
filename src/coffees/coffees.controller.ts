@@ -27,6 +27,7 @@ import {RemoveCoffeeService} from './services/remove-coffee.service'
 import {Public} from '../common/decorators/publid.decorator'
 import {Protocol} from '../common/decorators/protocol.decorator'
 import {AdminGuard} from '../common/guards/admin.guard'
+import {ListCoffeesFiltersDto} from './dtos/list-coffees-filters.dto'
 
 @Controller('coffees')
 export class CoffeesController {
@@ -45,7 +46,7 @@ export class CoffeesController {
   //index(@Query() { limit, offset }) {
   async index(
     @Protocol('https') protocol: string,
-    @Query() queryDto: QueryDto,
+    @Query() queryDto: QueryDto<ListCoffeesFiltersDto>,
   ) {
     console.log(`protocol: ${protocol}`)
     // const rand = Math.random() < 0.5

@@ -9,6 +9,7 @@ import {ListUsersService} from './services/list-users.service'
 import {User} from './entities/user.entity'
 import {ListActionUserDto} from './dtos/list-action-user.dto'
 import {ListActionOutputDto} from 'src/common/dtos/list-action-output.dto'
+import {ListUsersFiltersDto} from './dtos/list-users-filters.dto'
 
 @Controller('users')
 export class UsersController {
@@ -20,7 +21,7 @@ export class UsersController {
 
   @Get()
   @UseGuards(AdminGuard)
-  async index(@Query() queryDto: QueryDto) {
+  async index(@Query() queryDto: QueryDto<ListUsersFiltersDto>) {
     const result = await this.listUsersService.run(queryDto)
 
     const data: ListActionUserDto[] = await this.mapper.mapArrayAsync(

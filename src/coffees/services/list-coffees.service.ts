@@ -5,6 +5,7 @@ import {Coffee} from '../entities/coffee.entity'
 import {QueryDto} from '../../common/dtos/query.dto'
 import {CoffeeRepository} from '../repositories/coffees.repository'
 import {Service} from '../../common/service'
+import {ListCoffeesFiltersDto} from '../dtos/list-coffees-filters.dto'
 
 @Injectable()
 export class ListCoffeesService implements Service {
@@ -13,7 +14,7 @@ export class ListCoffeesService implements Service {
     private readonly coffeeRepository: CoffeeRepository<Coffee>,
   ) {}
 
-  run(query: QueryDto) {
+  run(query: QueryDto<ListCoffeesFiltersDto>) {
     return this.coffeeRepository.findAll(query)
 
     // TODO: DTO ??
