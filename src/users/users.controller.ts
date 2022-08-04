@@ -8,7 +8,7 @@ import {ListActionOutputDto} from '../common/dtos/list-action-output.dto'
 import {ListUsersService} from './services/list-users.service'
 import {User} from './entities/user.entity'
 import {ListUserRepresentation} from './representations/list-user.representation'
-import {ListUsersQueryDto} from './dtos/list-users-query.dto'
+import {ListUsersQueryDto} from './dtos/users-repository-query.dto'
 
 @Controller('users')
 export class UsersController {

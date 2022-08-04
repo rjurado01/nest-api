@@ -1,6 +1,6 @@
 import {IsOptional, IsString} from 'class-validator'
 
-export class ListUsersFiltersDto {
+export class UsersRepositoryQueryFilterDto {
   @IsOptional()
   @IsString()
   email: string

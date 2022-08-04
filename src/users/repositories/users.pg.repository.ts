@@ -4,11 +4,11 @@ import {DataSource, ILike, Repository} from 'typeorm'
 import {RepositoryQueryPaginationDto} from '../../common/dtos/repository-query-pagination.dto'
 
 import {User} from '../entities/user.entity'
-import {ListUsersFiltersDto} from '../dtos/list-users-filters.dto'
-import {ListUsersOrderDto} from '../dtos/list-users-order.dto'
+import {UsersRepositoryQueryFilterDto} from '../dtos/users-repository-query-filter.dto'
+import {UsersRepositoryQueryOrderDto} from '../dtos/users-repository-query-order.dto'
 
 import {UserRepository} from './users.repository'
-import {ListUsersQueryDto} from '../dtos/list-users-query.dto'
+import {ListUsersQueryDto} from '../dtos/users-repository-query.dto'
 
 @Injectable()
 export class UserPgRepository implements UserRepository {
@@ -33,12 +33,10 @@ export class UserPgRepository implements UserRepository {
       Object.assign(queryFormated, {order: this.processOrder(query.order)})
     }
 
-    console.log(queryFormated)
-
     return this.ormRepository.find(queryFormated)
   }
 
-  count(filter: ListUsersFiltersDto) {
+  count(filter: UsersRepositoryQueryFilterDto) {
     return this.ormRepository.count({where: this.processFilters(filter)})
   }
 
@@ -49,7 +47,7 @@ export class UserPgRepository implements UserRepository {
     }
   }
 
-  private processFilters(filters: ListUsersFiltersDto) {
+  private processFilters(filters: UsersRepositoryQueryFilterDto) {
     const result = {}
 
     if (!filters) return result
@@ -61,7 +59,7 @@ export class UserPgRepository implements UserRepository {
     return result
   }
 
-  private processOrder(order: ListUsersOrderDto) {
+  private processOrder(order: UsersRepositoryQueryOrderDto) {
     const result = {}
 
     if (order.createdAt) {
