@@ -5,10 +5,10 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator'
-import {EntityDto} from '../../common/dtos/entity.dto'
+import {Entity} from '../../common/interfaces/entity'
 import {CreateCoffeeFlavorDto} from './create-coffee-flavor.dto'
 
-export class CoffeeDto implements EntityDto {
+export class CoffeeDto implements Entity {
   @IsString()
   @IsOptional()
   readonly id: string

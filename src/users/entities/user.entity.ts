@@ -1,5 +1,5 @@
 import {AutoMap} from '@automapper/classes'
-import {IsDefined, IsEmail, IsString, MinLength} from 'class-validator'
+import {IsDate, IsDefined, IsEmail, IsString, MinLength} from 'class-validator'
 import {Column, Entity, PrimaryColumn} from 'typeorm'
 
 @Entity()
@@ -29,6 +29,11 @@ export class User {
   @MinLength(3)
   @AutoMap()
   email: string
+
+  @Column()
+  @IsDefined()
+  @IsDate()
+  createdAt: Date
 
   constructor() {}
 }

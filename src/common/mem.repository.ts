@@ -1,9 +1,9 @@
 import {EntityNotFoundError} from 'typeorm'
 
-import {QueryDto} from './dtos/query.dto'
-import {Entity} from './entity'
+import {Entity} from './interfaces/entity'
+import {RepositoryQuery} from './interfaces/repository-query'
 
-export class MemRepository<T extends Entity, FilterDto> {
+export class MemRepository<T extends Entity, F, O> {
   collection: T[] = []
 
   async findById(id: string) {
@@ -14,7 +14,7 @@ export class MemRepository<T extends Entity, FilterDto> {
     return Promise.resolve(user)
   }
 
-  findAll(query: QueryDto<FilterDto>) {
+  findAll(query: RepositoryQuery<F, O>) {
     const page = query.page?.number
     const size = query.page?.size
 

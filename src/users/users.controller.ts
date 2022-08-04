@@ -2,14 +2,13 @@ import {Controller, Get, Query, UseGuards} from '@nestjs/common'
 import {InjectMapper} from '@automapper/nestjs'
 import {Mapper} from '@automapper/core'
 
-import {QueryDto} from '../common/dtos/query.dto'
 import {AdminGuard} from '../common/guards/admin.guard'
+import {ListActionOutputDto} from '../common/dtos/list-action-output.dto'
 
 import {ListUsersService} from './services/list-users.service'
 import {User} from './entities/user.entity'
 import {ListActionUserDto} from './dtos/list-action-user.dto'
-import {ListActionOutputDto} from 'src/common/dtos/list-action-output.dto'
-import {ListUsersFiltersDto} from './dtos/list-users-filters.dto'
+import {ListUsersQueryDto} from './dtos/list-users-query.dto'
 
 @Controller('users')
 export class UsersController {
@@ -21,7 +20,8 @@ export class UsersController {
 
   @Get()
   @UseGuards(AdminGuard)
-  async index(@Query() queryDto: QueryDto<ListUsersFiltersDto>) {
+  async index(@Query() queryDto: ListUsersQueryDto) {
+    console.log(queryDto)
     const result = await this.listUsersService.run(queryDto)
 
     const data: ListActionUserDto[] = await this.mapper.mapArrayAsync(

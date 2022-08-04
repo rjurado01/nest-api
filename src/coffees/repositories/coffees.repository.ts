@@ -1,9 +1,8 @@
-import {QueryDto} from '../../common/dtos/query.dto'
-import {ListCoffeesFiltersDto} from '../dtos/list-coffees-filters.dto'
+import {ListCoffeesQueryDto} from '../dtos/list-coffees-query.dto'
 
 export interface CoffeeRepository<E> {
   findById(id: string): Promise<E>
-  findAll(query: QueryDto<ListCoffeesFiltersDto>): Promise<E[]>
+  findAll(query: ListCoffeesQueryDto): Promise<E[]>
   create(entity: E): Promise<void>
   update(entity: E): Promise<void>
   remove(entity: E): Promise<void>

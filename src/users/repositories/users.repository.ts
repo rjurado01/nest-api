@@ -1,10 +1,10 @@
-import {User} from '../entities/user.entity'
-import {QueryDto} from '../../common/dtos/query.dto'
 import {ListUsersFiltersDto} from '../dtos/list-users-filters.dto'
+import {ListUsersQueryDto} from '../dtos/list-users-query.dto'
+import {User} from '../entities/user.entity'
 
 export interface UserRepository {
-  findAll(query: QueryDto<ListUsersFiltersDto>): Promise<User[]>
-  count(filter: object): Promise<number>
+  findAll(query: ListUsersQueryDto): Promise<User[]>
+  count(filter: ListUsersFiltersDto): Promise<number>
 }
 
 export const UserRepository = Symbol('UserRepository')

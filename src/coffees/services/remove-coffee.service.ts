@@ -3,7 +3,7 @@ import {Inject} from '@nestjs/common'
 
 import {Coffee} from '../entities/coffee.entity'
 import {CoffeeRepository} from '../repositories/coffees.repository'
-import {Service} from '../../common/service'
+import {Service} from '../../common/interfaces/service'
 
 @Injectable()
 export class RemoveCoffeeService implements Service {

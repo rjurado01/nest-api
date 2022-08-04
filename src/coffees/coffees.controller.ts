@@ -13,7 +13,6 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import {REQUEST} from '@nestjs/core'
-import {QueryDto} from '../common/dtos/query.dto'
 import {Request} from 'express'
 
 import {CoffeeDto} from './dtos/coffee.dto'
@@ -27,7 +26,7 @@ import {RemoveCoffeeService} from './services/remove-coffee.service'
 import {Public} from '../common/decorators/publid.decorator'
 import {Protocol} from '../common/decorators/protocol.decorator'
 import {AdminGuard} from '../common/guards/admin.guard'
-import {ListCoffeesFiltersDto} from './dtos/list-coffees-filters.dto'
+import {ListCoffeesQueryDto} from './dtos/list-coffees-query.dto'
 
 @Controller('coffees')
 export class CoffeesController {
@@ -46,7 +45,7 @@ export class CoffeesController {
   //index(@Query() { limit, offset }) {
   async index(
     @Protocol('https') protocol: string,
-    @Query() queryDto: QueryDto<ListCoffeesFiltersDto>,
+    @Query() queryDto: ListCoffeesQueryDto,
   ) {
     console.log(`protocol: ${protocol}`)
     // const rand = Math.random() < 0.5

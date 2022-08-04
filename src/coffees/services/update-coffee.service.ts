@@ -4,7 +4,7 @@ import {Inject} from '@nestjs/common'
 import {Coffee} from '../entities/coffee.entity'
 import {CoffeeDto} from '../dtos/coffee.dto'
 import {CoffeeRepository} from '../repositories/coffees.repository'
-import {Service} from '../../common/service'
+import {Service} from '../../common/interfaces/service'
 import {EntityValidator} from '../../common/helpers/entity-validator'
 import {EntityPreloader} from 'src/common/helpers/entity-preloader'
 

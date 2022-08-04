@@ -1,11 +1,11 @@
-import {EntityDto} from '../dtos/entity.dto'
+import {Entity} from '../interfaces/entity'
 
 export interface Repository<E> {
   findById(id: string): Promise<E>
 }
 
 export class EntityPreloader {
-  static async preload<T>(repository: Repository<T>, dto: EntityDto) {
+  static async preload<T>(repository: Repository<T>, dto: Entity) {
     const entity = await repository.findById(dto.id)
 
     Object.assign(entity, dto)

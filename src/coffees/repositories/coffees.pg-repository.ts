@@ -1,11 +1,10 @@
 import {Injectable} from '@nestjs/common'
 import {DataSource, EntityNotFoundError, Repository} from 'typeorm'
 
-import {PaginationQueryDto} from '../../common/dtos/pagination-query.dto'
-import {QueryDto} from '../../common/dtos/query.dto'
 import {CoffeeRepository} from './coffees.repository'
 import {Coffee} from '../entities/coffee.entity'
-import {ListCoffeesFiltersDto} from '../dtos/list-coffees-filters.dto'
+import {ListCoffeesQueryDto} from '../dtos/list-coffees-query.dto'
+import {RepositoryQueryPaginationDto} from '../../common/dtos/repository-query-pagination.dto'
 
 // https://stackoverflow.com/questions/29336496/extends-and-implements-in-one-class-in-typescript
 @Injectable()
@@ -24,8 +23,8 @@ export class CoffeePgRepository implements CoffeeRepository<Coffee> {
     return coffee
   }
 
-  findAll(query: QueryDto<ListCoffeesFiltersDto>) {
-    const page: PaginationQueryDto = query.page
+  findAll(query: ListCoffeesQueryDto) {
+    const page: RepositoryQueryPaginationDto = query.page
     const queryFormated = {}
 
     // TODO: sacar a un helper
