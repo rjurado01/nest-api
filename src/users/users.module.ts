@@ -1,5 +1,5 @@
 import {Module} from '@nestjs/common'
-import {UserProfile} from './dtos/user.profile'
+import {UserProfile} from './representations/user.profile'
 
 import {UserPgRepository} from './repositories/users.pg.repository'
 import {UserRepository} from './repositories/users.repository'
