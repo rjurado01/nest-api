@@ -1,12 +1,22 @@
-import {IsOptional, ValidateNested} from 'class-validator'
+import {IsOptional, IsString, IsEnum, ValidateNested} from 'class-validator'
 
 import {RepositoryQueryPaginationDto} from '../../common/dtos/repository-query-pagination.dto'
 import {RepositoryQuery} from '../../common/interfaces/repository-query'
+import {OrderDirs} from '../../common/common.constants'
 
-import {UsersRepositoryQueryFilterDto} from './users-repository-query-filter.dto'
-import {UsersRepositoryQueryOrderDto} from './users-repository-query-order.dto'
+class UsersRepositoryQueryFilterDto {
+  @IsOptional()
+  @IsString()
+  email: string
+}
 
-export class ListUsersQueryDto
+class UsersRepositoryQueryOrderDto {
+  @IsOptional()
+  @IsEnum(OrderDirs)
+  createdAt: OrderDirs
+}
+
+export class UsersRepositoryQueryDto
   implements
     RepositoryQuery<
       UsersRepositoryQueryFilterDto,

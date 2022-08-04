@@ -6,7 +6,7 @@ import {ListServiceOutputDto} from '../../common/dtos/list-service-output.dto'
 
 import {User} from '../entities/user.entity'
 import {UserRepository} from '../repositories/users.repository'
-import {ListUsersQueryDto} from '../dtos/users-repository-query.dto'
+import {UsersRepositoryQueryDto} from '../dtos/users.repository-query.dto'
 
 @Injectable()
 export class ListUsersService implements Service {
@@ -15,7 +15,7 @@ export class ListUsersService implements Service {
     private readonly userRepository: UserRepository,
   ) {}
 
-  async run(query: ListUsersQueryDto) {
+  async run(query: UsersRepositoryQueryDto) {
     const users = await this.userRepository.findAll(query)
     const count = await this.userRepository.count(query.filter)
 

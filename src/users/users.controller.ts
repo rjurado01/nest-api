@@ -3,12 +3,12 @@ import {InjectMapper} from '@automapper/nestjs'
 import {Mapper} from '@automapper/core'
 
 import {AdminGuard} from '../common/guards/admin.guard'
-import {ListActionOutputDto} from '../common/dtos/list-action-output.dto'
+import {ListActionRepresentation} from '../common/representations/list-action.reprsentation'
 
 import {ListUsersService} from './services/list-users.service'
 import {User} from './entities/user.entity'
 import {ListUserRepresentation} from './representations/list-user.representation'
-import {ListUsersQueryDto} from './dtos/users-repository-query.dto'
+import {UsersRepositoryQueryDto} from './dtos/users.repository-query.dto'
 
 @Controller('users')
 export class UsersController {
@@ -20,7 +20,7 @@ export class UsersController {
 
   @Get()
   @UseGuards(AdminGuard)
-  async index(@Query() queryDto: ListUsersQueryDto) {
+  async index(@Query() queryDto: UsersRepositoryQueryDto) {
     const result = await this.listUsersService.run(queryDto)
 
     const data: ListUserRepresentation[] = await this.mapper.mapArrayAsync(
@@ -29,6 +29,9 @@ export class UsersController {
       ListUserRepresentation,
     )
 
-    return new ListActionOutputDto<ListUserRepresentation>(data, result.meta)
+    return new ListActionRepresentation<ListUserRepresentation>(
+      data,
+      result.meta,
+    )
   }
 }

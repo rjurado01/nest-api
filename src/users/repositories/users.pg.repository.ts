@@ -4,11 +4,11 @@ import {DataSource, ILike, Repository} from 'typeorm'
 import {RepositoryQueryPaginationDto} from '../../common/dtos/repository-query-pagination.dto'
 
 import {User} from '../entities/user.entity'
-import {UsersRepositoryQueryFilterDto} from '../dtos/users-repository-query-filter.dto'
-import {UsersRepositoryQueryOrderDto} from '../dtos/users-repository-query-order.dto'
+import {UsersRepositoryQueryFilterDto} from '../dtos/users.repository-query-filter.dto'
+import {UsersRepositoryQueryOrderDto} from '../dtos/users.repository-query-order.dto'
 
 import {UserRepository} from './users.repository'
-import {ListUsersQueryDto} from '../dtos/users-repository-query.dto'
+import {UsersRepositoryQueryDto} from '../dtos/users.repository-query.dto'
 
 @Injectable()
 export class UserPgRepository implements UserRepository {
@@ -18,7 +18,7 @@ export class UserPgRepository implements UserRepository {
     this.ormRepository = dataSource.getRepository(User)
   }
 
-  findAll(query: ListUsersQueryDto) {
+  findAll(query: UsersRepositoryQueryDto) {
     const queryFormated = {}
 
     if (query.page) {
