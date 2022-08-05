@@ -1,6 +1,6 @@
 import {AutoMap} from '@automapper/classes'
 
-export class ListUserRepresentation {
+export class UserListRepresentation {
   @AutoMap()
   id: string
 

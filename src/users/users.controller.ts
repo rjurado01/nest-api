@@ -7,7 +7,7 @@ import {ListActionRepresentation} from '../common/representations/list-action.re
 
 import {ListUsersService} from './services/list-users.service'
 import {User} from './entities/user.entity'
-import {ListUserRepresentation} from './representations/list-user.representation'
+import {UserListRepresentation} from './representations/user.list.representation'
 import {UsersRepositoryQueryDto} from './dtos/users.repository-query.dto'
 
 @Controller('users')
@@ -23,13 +23,13 @@ export class UsersController {
   async index(@Query() queryDto: UsersRepositoryQueryDto) {
     const result = await this.listUsersService.run(queryDto)
 
-    const data: ListUserRepresentation[] = await this.mapper.mapArrayAsync(
+    const data: UserListRepresentation[] = await this.mapper.mapArrayAsync(
       result.data,
       User,
-      ListUserRepresentation,
+      UserListRepresentation,
     )
 
-    return new ListActionRepresentation<ListUserRepresentation>(
+    return new ListActionRepresentation<UserListRepresentation>(
       data,
       result.meta,
     )

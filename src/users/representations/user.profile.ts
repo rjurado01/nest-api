@@ -2,7 +2,7 @@ import {AutomapperProfile, InjectMapper} from '@automapper/nestjs'
 import {createMap, Mapper} from '@automapper/core'
 import {Injectable} from '@nestjs/common'
 import {User} from '../entities/user.entity'
-import {ListUserRepresentation} from './list-user.representation'
+import {UserListRepresentation} from './user.list.representation'
 
 @Injectable()
 export class UserProfile extends AutomapperProfile {
@@ -12,7 +12,7 @@ export class UserProfile extends AutomapperProfile {
 
   override get profile() {
     return (mapper: Mapper) => {
-      createMap(mapper, User, ListUserRepresentation)
+      createMap(mapper, User, UserListRepresentation)
     }
   }
 }
