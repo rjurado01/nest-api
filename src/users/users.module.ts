@@ -1,15 +1,17 @@
 import {Module} from '@nestjs/common'
-import {UserProfile} from './representations/user.profile'
 
+import {UsersController} from './users.controller'
+import {UsersProfile} from './users.profile'
+import {ListUsersService} from './services/list-users.service'
+import {ShowUserService} from './services/show-user.service'
 import {UserPgRepository} from './repositories/users.pg.repository'
 import {UserRepository} from './repositories/users.repository'
-import {ListUsersService} from './services/list-users.service'
-import {UsersController} from './users.controller'
 
 @Module({
   providers: [
     ListUsersService,
-    UserProfile,
+    ShowUserService,
+    UsersProfile,
     {provide: UserRepository, useClass: UserPgRepository},
   ],
   controllers: [UsersController],

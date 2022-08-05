@@ -1,5 +1,5 @@
 import {Injectable} from '@nestjs/common'
-import {DataSource, ILike, Repository} from 'typeorm'
+import {DataSource, EntityNotFoundError, ILike, Repository} from 'typeorm'
 
 import {RepositoryQueryPaginationDto} from '../../common/dtos/repository-query-pagination.dto'
 
@@ -34,6 +34,14 @@ export class UserPgRepository implements UserRepository {
     }
 
     return this.ormRepository.find(queryFormated)
+  }
+
+  async findById(id: string) {
+    const user = await this.ormRepository.findOne({where: {id}})
+
+    if (!user) throw new EntityNotFoundError(User, id)
+
+    return user
   }
 
   count(filter: UsersRepositoryQueryFilterDto) {

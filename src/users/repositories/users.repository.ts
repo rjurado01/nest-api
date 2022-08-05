@@ -4,6 +4,7 @@ import {User} from '../entities/user.entity'
 
 export interface UserRepository {
   findAll(query: UsersRepositoryQueryDto): Promise<User[]>
+  findById(id: string): Promise<User>
   count(filter: UsersRepositoryQueryFilterDto): Promise<number>
 }
 
