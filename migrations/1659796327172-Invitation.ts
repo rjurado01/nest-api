@@ -1,9 +1,8 @@
-import {USER_ROLES, USER_STATUSES} from 'src/users/users.constants'
 import {MigrationInterface, QueryRunner, Table} from 'typeorm'
 
-export class User1659278411385 implements MigrationInterface {
+export class Invitation1659796327172 implements MigrationInterface {
   private table = new Table({
-    name: 'user',
+    name: 'invitation',
     columns: [
       {
         name: 'id',
@@ -15,12 +14,7 @@ export class User1659278411385 implements MigrationInterface {
       {
         name: 'role',
         type: 'enum',
-        enum: Object.values(USER_ROLES),
-      },
-      {
-        name: 'status',
-        type: 'enum',
-        enum: Object.values(USER_STATUSES),
+        enum: ['admin', 'manager', 'normal'],
       },
       {
         name: 'email',
@@ -29,19 +23,9 @@ export class User1659278411385 implements MigrationInterface {
         isUnique: true,
       },
       {
-        name: 'createdAt',
+        name: 'created_at',
         type: 'timestamptz',
         default: 'now()',
-      },
-      {
-        name: 'updatedAt',
-        type: 'timestamptz',
-        default: 'now()',
-      },
-      {
-        name: 'passwordDigest',
-        type: 'varchar',
-        isNullable: true,
       },
     ],
   })

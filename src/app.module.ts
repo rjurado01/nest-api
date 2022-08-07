@@ -12,6 +12,7 @@ import {CoffeeRatingModule} from './coffee-rating/coffee-rating.module'
 import {CommonModule} from './common/common.module'
 import {AuthModule} from './auth/auth.module'
 import {UsersModule} from './users/users.module'
+import {InvitationsModule} from './invitations/invitations.module'
 
 import * as Joi from 'joi'
 import {AppDataSource} from 'ormconfig'
@@ -35,6 +36,7 @@ import {AppDataSource} from 'ormconfig'
     TypeOrmModule.forRoot(AppDataSource.options),
     AuthModule,
     UsersModule,
+    InvitationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

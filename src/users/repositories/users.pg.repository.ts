@@ -1,5 +1,5 @@
 import {Injectable} from '@nestjs/common'
-import {DataSource, EntityNotFoundError, ILike, Repository} from 'typeorm'
+import {DataSource, EntityNotFoundError, ILike, In, Repository} from 'typeorm'
 
 import {RepositoryQueryPaginationDto} from '../../common/dtos/repository-query-pagination.dto'
 
@@ -48,6 +48,10 @@ export class UserPgRepository implements UserRepository {
     return this.ormRepository.count({where: this.processFilters(filter)})
   }
 
+  async create(user: User) {
+    return this.ormRepository.insert(user).then(() => {})
+  }
+
   private processPagination(page: RepositoryQueryPaginationDto) {
     return {
       skip: (page.number - 1) * page.size,
@@ -55,13 +59,15 @@ export class UserPgRepository implements UserRepository {
     }
   }
 
-  private processFilters(filters: UsersRepositoryQueryFilterDto) {
+  private processFilters(filter: UsersRepositoryQueryFilterDto) {
     const result = {}
 
-    if (!filters) return result
+    if (!filter) return result
 
-    if (filters.email) {
-      result['email'] = ILike(`%${filters.email}%`)
+    if (filter.email) {
+      result['email'] = ILike(`%${filter.email}%`)
+    } else if (filter.emails) {
+      result['email'] = In(filter.emails)
     }
 
     return result

@@ -3,7 +3,7 @@ import {IsDate, IsDefined, IsEmail, IsString, MinLength} from 'class-validator'
 import {Column, Entity, PrimaryColumn} from 'typeorm'
 
 @Entity()
-export class User {
+export class Invitation {
   @PrimaryColumn()
   @IsDefined()
   @IsString()
@@ -15,12 +15,6 @@ export class User {
   @IsString()
   @AutoMap()
   role: string
-
-  @Column()
-  @IsDefined()
-  @IsString()
-  @AutoMap()
-  status: string
 
   @Column()
   @IsDefined()
