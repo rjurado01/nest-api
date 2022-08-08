@@ -1,4 +1,4 @@
-import {Injectable} from '@nestjs/common'
+import {Injectable, Scope} from '@nestjs/common'
 import {Inject} from '@nestjs/common'
 
 import {Service} from '../../common/interfaces/service'
@@ -8,7 +8,7 @@ import {User} from '../entities/user.entity'
 import {UserRepository} from '../repositories/users.repository'
 import {UsersRepositoryQueryDto} from '../dtos/users.repository-query.dto'
 
-@Injectable()
+@Injectable({scope: Scope.REQUEST})
 export class ListUsersService implements Service {
   constructor(
     @Inject(UserRepository)

@@ -17,7 +17,6 @@ export class CreateUserService implements Service {
   ) {}
 
   async run(createUserDto: UserDto) {
-    console.log(createUserDto)
     let errors: EntityErrors = new EntityErrors()
     let user: User = null
 
@@ -35,5 +34,7 @@ export class CreateUserService implements Service {
     if (errors.hasErrors()) throw new EntityInvalidError(errors)
 
     await this.userRepository.create(user)
+
+    return Promise.resolve()
   }
 }

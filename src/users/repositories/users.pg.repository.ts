@@ -1,5 +1,5 @@
 import {Injectable} from '@nestjs/common'
-import {DataSource, EntityNotFoundError, ILike, In, Repository} from 'typeorm'
+import {EntityNotFoundError, ILike, In, Repository} from 'typeorm'
 
 import {RepositoryQueryPaginationDto} from '../../common/dtos/repository-query-pagination.dto'
 
@@ -9,13 +9,14 @@ import {UsersRepositoryQueryOrderDto} from '../dtos/users.repository-query-order
 
 import {UserRepository} from './users.repository'
 import {UsersRepositoryQueryDto} from '../dtos/users.repository-query.dto'
+import {EntityManager} from '../../common/helpers/entity-manager'
 
 @Injectable()
 export class UserPgRepository implements UserRepository {
   ormRepository: Repository<User>
 
-  constructor(dataSource: DataSource) {
-    this.ormRepository = dataSource.getRepository(User)
+  constructor(entityManager: EntityManager) {
+    this.ormRepository = entityManager.getRepository(User)
   }
 
   findAll(query: UsersRepositoryQueryDto) {

@@ -7,6 +7,7 @@ import {Service} from '../../common/interfaces/service'
 import {EntityInvalidError} from '../../common/errors/entity-invalid.error'
 import {EntityErrors} from '../../common/helpers/entity-errors'
 import {EntityMapper} from '../../common/helpers/entity-mapper'
+import {EntityManager} from '../../common/helpers/entity-manager'
 
 import {Invitation} from '../entities/invitation.entity'
 import {CreateInvitationDto} from '../dtos/create-invitation.dto'
@@ -21,6 +22,7 @@ export class CreateInvitationService implements Service {
     @Inject(InvitationRepository)
     private readonly invitationRepository: InvitationRepository,
     private readonly inviteUserService: InviteUserService,
+    private readonly entityManager: EntityManager,
   ) {}
 
   async run(createInvitationDto: CreateInvitationDto) {
@@ -45,16 +47,18 @@ export class CreateInvitationService implements Service {
 
     console.log(invitation)
 
-    await this.invitationRepository.create(invitation)
+    return this.entityManager
+      .runInTransaction(async () => {
+        await this.invitationRepository.create(invitation)
 
-    await this.inviteUserService.run(
-      plainToClass(UserDto, {
-        id: randomUUID(),
-        email: invitation.email,
-        role: invitation.role,
-      }),
-    )
-
-    return Promise.resolve()
+        await this.inviteUserService.run(
+          plainToClass(UserDto, {
+            id: randomUUID(),
+            email: invitation.email,
+            role: invitation.role,
+          }),
+        )
+      })
+      .then(() => {})
   }
 }
