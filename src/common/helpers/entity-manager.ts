@@ -14,6 +14,8 @@ export class EntityManager extends TypeOrmEntityManager {
   getRepository<Entity extends ObjectLiteral>(
     target: EntityTarget<Entity>,
   ): Repository<Entity> {
+    console.log(!!this.transactionalEntityManager)
+
     return (
       this.transactionalEntityManager?.getRepository(target) ||
       super.getRepository(target)
@@ -21,7 +23,6 @@ export class EntityManager extends TypeOrmEntityManager {
   }
 
   async runInTransaction(callback: () => Promise<any>): Promise<any> {
-    console.log('trans')
     const result = await this.transaction(async transactionalEntityManager => {
       this.transactionalEntityManager = transactionalEntityManager
       return callback()

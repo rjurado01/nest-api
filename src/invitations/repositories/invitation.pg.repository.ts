@@ -1,5 +1,5 @@
 import {Injectable} from '@nestjs/common'
-import {In, Repository} from 'typeorm'
+import {In} from 'typeorm'
 
 import {EntityManager} from '../../common/helpers/entity-manager'
 
@@ -8,10 +8,10 @@ import {InvitationRepository} from './invitation.repository'
 
 @Injectable()
 export class InvitationPgRepository implements InvitationRepository {
-  ormRepository: Repository<Invitation>
+  entityManager: EntityManager
 
   constructor(entityManager: EntityManager) {
-    this.ormRepository = entityManager.getRepository(Invitation)
+    this.entityManager = entityManager
   }
 
   findByEmails(emails: string[]) {
@@ -20,5 +20,9 @@ export class InvitationPgRepository implements InvitationRepository {
 
   async create(invitation: Invitation) {
     return this.ormRepository.insert(invitation).then(() => {})
+  }
+
+  private get ormRepository() {
+    return this.entityManager.getRepository(Invitation)
   }
 }

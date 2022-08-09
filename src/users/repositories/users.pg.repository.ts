@@ -13,10 +13,10 @@ import {EntityManager} from '../../common/helpers/entity-manager'
 
 @Injectable()
 export class UserPgRepository implements UserRepository {
-  ormRepository: Repository<User>
+  entityManager: EntityManager
 
   constructor(entityManager: EntityManager) {
-    this.ormRepository = entityManager.getRepository(User)
+    this.entityManager = entityManager
   }
 
   findAll(query: UsersRepositoryQueryDto) {
@@ -50,7 +50,14 @@ export class UserPgRepository implements UserRepository {
   }
 
   async create(user: User) {
-    return this.ormRepository.insert(user).then(() => {})
+    return this.entityManager
+      .getRepository(User)
+      .insert(user)
+      .then(() => {})
+  }
+
+  private get ormRepository() {
+    return this.entityManager.getRepository(User)
   }
 
   private processPagination(page: RepositoryQueryPaginationDto) {

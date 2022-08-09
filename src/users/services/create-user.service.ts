@@ -26,12 +26,12 @@ export class CreateUserService implements Service {
       errors = err.errors
     }
 
-    try {
-      await this.userRepository.findById(createUserDto.id)
-      errors.addError('id', 'taken', {value: createUserDto.id})
-    } catch (err) {}
+    // try {
+    //   await this.userRepository.findById(createUserDto.id)
+    //   errors.addError('id', 'taken', {value: createUserDto.id})
+    // } catch (err) {}
 
-    if (errors.hasErrors()) throw new EntityInvalidError(errors)
+    // if (errors.hasErrors()) throw new EntityInvalidError(errors)
 
     await this.userRepository.create(user)
 
