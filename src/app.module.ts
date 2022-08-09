@@ -15,7 +15,7 @@ import {UsersModule} from './users/users.module'
 import {InvitationsModule} from './invitations/invitations.module'
 
 import * as Joi from 'joi'
-import {AppDataSource} from 'ormconfig'
+import {AppDataSource} from '../ormconfig'
 
 @Module({
   imports: [
