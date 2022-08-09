@@ -56,6 +56,8 @@ export class UserPgRepository implements UserRepository {
       .then(() => {})
   }
 
+  // PRIVATE ---
+
   private get ormRepository() {
     return this.entityManager.getRepository(User)
   }

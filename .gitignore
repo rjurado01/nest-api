@@ -7,3 +7,4 @@ temp/
 dist/
 yarn-error.log
 *.env
+aux.ts

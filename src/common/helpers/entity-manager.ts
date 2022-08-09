@@ -14,8 +14,6 @@ export class EntityManager extends TypeOrmEntityManager {
   getRepository<Entity extends ObjectLiteral>(
     target: EntityTarget<Entity>,
   ): Repository<Entity> {
-    console.log(!!this.transactionalEntityManager)
-
     return (
       this.transactionalEntityManager?.getRepository(target) ||
       super.getRepository(target)

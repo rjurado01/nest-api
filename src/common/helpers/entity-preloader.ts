@@ -8,7 +8,7 @@ export class EntityPreloader {
   static async preload<T>(repository: Repository<T>, dto: Entity) {
     const entity = await repository.findById(dto.id)
 
-    Object.assign(entity, dto)
+    Object.assign({...entity}, dto)
 
     return entity
   }

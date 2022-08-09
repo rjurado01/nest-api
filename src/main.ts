@@ -20,6 +20,7 @@ async function bootstrap() {
       whitelist: true,
       transform: true,
       forbidNonWhitelisted: true,
+      skipMissingProperties: true,
       transformOptions: {enableImplicitConversion: true},
       exceptionFactory: (errors: ValidationError[]) => {
         return new UnprocessableEntityException(errors)

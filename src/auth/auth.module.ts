@@ -13,6 +13,7 @@ import {JwtStrategy} from './strategies/jwt.strategy'
 import {AuthUserPgRepository} from './repositories/auth-user.pg.repository'
 import {AuthUserRepository} from './repositories/auth-user.repository'
 import {AuthUser} from './entities/auth-user.entity'
+import {UpdateUserPasswordService} from './services/update-user-password.service'
 
 @Module({
   imports: [
@@ -37,11 +38,12 @@ import {AuthUser} from './entities/auth-user.entity'
   ],
   providers: [
     AuthService,
+    UpdateUserPasswordService,
     LocalStrategy,
     JwtStrategy,
     {provide: APP_GUARD, useClass: JwtAuthGuard},
     {provide: AuthUserRepository, useClass: AuthUserPgRepository},
   ],
-  exports: [AuthService],
+  exports: [AuthService, UpdateUserPasswordService],
 })
 export class AuthModule {}

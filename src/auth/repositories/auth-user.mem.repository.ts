@@ -23,4 +23,14 @@ export class AuthUserMemRepository implements AuthUserRepository {
 
     return Promise.resolve(user)
   }
+
+  async findById(id: string) {
+    const user = this.collection.find(item => item.id === id)
+
+    if (!user) throw new EntityNotFoundError(AuthUser, {id})
+
+    return Promise.resolve(user)
+  }
+
+  update: (user: AuthUser) => Promise<void>
 }

@@ -1,5 +1,5 @@
 import {Injectable} from '@nestjs/common'
-import {In} from 'typeorm'
+import {EntityNotFoundError, In} from 'typeorm'
 
 import {EntityManager} from '../../common/helpers/entity-manager'
 
@@ -14,12 +14,24 @@ export class InvitationPgRepository implements InvitationRepository {
     this.entityManager = entityManager
   }
 
-  findByEmails(emails: string[]) {
+  findAllByEmails(emails: string[]) {
     return this.ormRepository.find({where: {email: In(emails)}})
+  }
+
+  async findOneById(id = '') {
+    const result = await this.ormRepository.findOneBy({id})
+
+    if (!result) throw new EntityNotFoundError(Invitation, id)
+
+    return result
   }
 
   async create(invitation: Invitation) {
     return this.ormRepository.insert(invitation).then(() => {})
+  }
+
+  async deleteById(id: string) {
+    return this.ormRepository.delete(id).then(() => {})
   }
 
   private get ormRepository() {

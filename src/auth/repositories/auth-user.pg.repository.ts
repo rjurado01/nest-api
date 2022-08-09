@@ -1,21 +1,32 @@
-import {Injectable} from '@nestjs/common'
-import {DataSource, EntityNotFoundError, Repository} from 'typeorm'
+import {EntityNotFoundError} from 'typeorm'
+
+import {PgRepository} from '../../common/repositories/pg.repository'
 import {AuthUser} from '../entities/auth-user.entity'
 import {AuthUserRepository} from './auth-user.repository'
 
-@Injectable()
-export class AuthUserPgRepository implements AuthUserRepository {
-  ormRepository: Repository<AuthUser>
+export class AuthUserPgRepository
+  extends PgRepository<AuthUser>
+  implements AuthUserRepository
+{
+  entity = AuthUser
 
-  constructor(dataSource: DataSource) {
-    this.ormRepository = dataSource.getRepository(AuthUser)
+  async findById(id: string) {
+    const user = await this.ormRepository.findOne({where: {id}})
+
+    if (!user) throw new EntityNotFoundError(this.entity, id)
+
+    return user
   }
 
   async findByEmail(email: string) {
     const user = await this.ormRepository.findOne({where: {email}})
 
-    if (!user) throw new EntityNotFoundError(AuthUser, email)
+    if (!user) throw new EntityNotFoundError(this.entity, email)
 
     return user
+  }
+
+  async update(authUser: AuthUser) {
+    return this.ormRepository.save(authUser).then(() => {})
   }
 }

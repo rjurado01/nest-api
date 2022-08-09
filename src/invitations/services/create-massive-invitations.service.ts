@@ -8,7 +8,6 @@ import {EntityInvalidError} from '../../common/errors/entity-invalid.error'
 import {EntityErrors} from '../../common/helpers/entity-errors'
 
 import {ListUsersService} from '../../users/services/list-users.service'
-import {InviteUserService} from '../../users/services/invite-user.service'
 import {UsersRepositoryQueryDto} from '../../users/dtos/users.repository-query.dto'
 import {UserDto} from '../../users/dtos/user.dto'
 
@@ -29,7 +28,7 @@ export class CreateMassiveInvitationsService implements Service {
 
   async run(data: CreateMassiveInvitationsEntryDto) {
     const invitations: Invitation[] =
-      await this.invitationRepository.findByEmails(data.emails)
+      await this.invitationRepository.findAllByEmails(data.emails)
 
     const query = plainToClass(UsersRepositoryQueryDto, {
       filter: {emails: data.emails},

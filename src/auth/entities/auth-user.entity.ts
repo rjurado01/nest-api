@@ -33,7 +33,11 @@ export class AuthUser {
   constructor() {}
 
   validate(password: string) {
-    return this.passwordDigest == this.encryptPass(password)
+    return this.passwordDigest === this.encryptPass(password)
+  }
+
+  setPassword(password: string) {
+    this.passwordDigest = this.encryptPass(password)
   }
 
   private encryptPass(password: string) {
